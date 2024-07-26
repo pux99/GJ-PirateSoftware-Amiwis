@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Image slotImage;
+    public Herb herb;
+    public UnityEvent<Herb> AddHerbToCrafting=new UnityEvent<Herb>();
 
-    // Update is called once per frame
-    void Update()
+    public void addHerb()
     {
-        
+        if(herb != null)
+        {
+            AddHerbToCrafting.Invoke(herb);
+        }
+    }
+    public void SetSlot(Herb Nherb)
+    {
+        herb = Nherb;
+        slotImage.sprite = herb.getSprite();
+        slotImage.color = herb.getColor();
+        slotImage.enabled = true;
+    }
+    public void ClearSlot()
+    {
+        slotImage.sprite=null;
+        slotImage.enabled=false;
+        herb=null;
     }
 }

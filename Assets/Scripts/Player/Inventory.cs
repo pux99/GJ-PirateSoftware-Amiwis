@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private Herb[] herbs =new Herb[6];
+    [SerializeField] public Herb[] herbs =new Herb[6];
     [SerializeField] private LayerMask PickUps;
     [SerializeField] private float couldown;
     public float couldownTimer;
@@ -50,6 +50,8 @@ public class Inventory : MonoBehaviour
                         if (herbs[i] == null)
                         {
                             herbs[i] = hitColiders.gameObject.GetComponent<Herb>();
+                            hitColiders.transform.parent = gameObject.transform;
+                            herbs[i].TurnOff();
                             break;
                         }
                     }
