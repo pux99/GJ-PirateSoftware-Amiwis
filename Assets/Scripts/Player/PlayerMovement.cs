@@ -17,8 +17,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask stopMovemet;
     [SerializeField] private Transform camera;
     [SerializeField] private GetAvarageColor avgColor;
+    Vector3 PreviusPosition;
     private bool tryingToMove = false;
-    private bool moving=true;
+    private bool moving=false;
     private bool CanMove=true;
     public UnityEvent Moving=new UnityEvent();
     // Start is called before the first frame update
@@ -31,19 +32,22 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(CanMove)
+        if (CanMove && moving)
+        {
             transform.position = Vector3.MoveTowards(transform.position, pointToMove.position, moveSpeed * Time.deltaTime);
+        }
+            
         if (delayClock>=0)
         {
             delayClock -= Time.deltaTime;
         }
         if (tryingToMove && delayClock < 0)
         {            
-            if (CurrentDirection == NextDirection)
+            if (CurrentDirection == NextDirection&& (Input.GetAxisRaw("Vertical")!=0|| Input.GetAxisRaw("Horizontal")!=0))
             {
                 if (NextTileIsValid(pointToMove.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f)))
                 {
-                    pointToMove.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+                    pointToMove.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);                   
                     moving = true;
                 }
                 if (NextTileIsValid(pointToMove.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f)) && Input.GetAxisRaw("Horizontal") == 0)
