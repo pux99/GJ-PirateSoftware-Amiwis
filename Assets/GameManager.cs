@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
 {
     private int _turnCount;
     public int turnCount {  get { return _turnCount; } }
-    public PlayerManager _playerManager;
+    [SerializeField]public PlayerManager _playerManager;
     public static List<EnemyActor> actors= new List<EnemyActor>();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +29,9 @@ public class GameManager : MonoBehaviour
         {
             actor.MakeAction();
         }
+    }
+    public  void StopTime(bool b)
+    {
+        _playerManager.ToggleMovement(b);
     }
 }
