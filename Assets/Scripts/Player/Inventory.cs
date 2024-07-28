@@ -11,6 +11,10 @@ public class Inventory : MonoBehaviour
     [SerializeField] private float couldown;
     public float couldownTimer;
     // Start is called before the first frame update
+
+    public CameraShake cameraShake;
+    public float shakeIntensity = 5f;
+    public float shakeDuration = 0.5f;
     void Start()
     {
         
@@ -59,6 +63,7 @@ public class Inventory : MonoBehaviour
                             herbs[i] = hitColiders.gameObject.GetComponent<Herb>();
                             hitColiders.transform.parent = gameObject.transform;
                             herbs[i].TurnOff();
+                            cameraShake.ShakeCamera(shakeIntensity, shakeDuration);
                             break;
                         }
                     }
