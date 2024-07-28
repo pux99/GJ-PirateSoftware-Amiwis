@@ -92,6 +92,40 @@ public class GetGridPosition : MonoBehaviour
                 }
                 break;
             case Mod.DrawingCone:
+                switch (Input.GetAxisRaw("Horizontal"))
+                {
+                    case 1:
+                        direction = new Vector3Int(1, 0, 0);
+                        IndicatiorTilemap.ClearAllTiles();
+                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        break;
+                    case -1:
+                        direction = new Vector3Int(-1, 0, 0);
+                        IndicatiorTilemap.ClearAllTiles();
+                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        break;
+                }
+                switch (Input.GetAxisRaw("Vertical"))
+                {
+                    case 1:
+                        direction = new Vector3Int(0, 1, 0);
+                        IndicatiorTilemap.ClearAllTiles();
+                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        break;
+                    case -1:
+                        direction = new Vector3Int(0, -1, 0);
+                        IndicatiorTilemap.ClearAllTiles();
+                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        break;
+                }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    IndicatiorTilemap.ClearAllTiles();
+                    DrawCone(ShadowTilemap, Shadow, 1);
+                    DrawCone(BlackTilemap, Black, 1);
+                    DrawingMod = Mod.NotDrawing;
+                    playerManager.ToggleMovement(true);
+                }
                 break;
             default:
                 break;
@@ -109,8 +143,8 @@ public class GetGridPosition : MonoBehaviour
             IndicatorCenter = GridPosition;
             if(DrawingMod == Mod.NotDrawing)
                 playerManager.ToggleMovement(false);
-            DrawingMod = Mod.DrawingLine;
-
+            //DrawingMod = Mod.DrawingLine;
+            DrawingMod = Mod.DrawingCone;
         }
         if (Input.GetKeyDown(KeyCode.Escape)&&DrawingMod!=Mod.NotDrawing)
         {
@@ -118,6 +152,13 @@ public class GetGridPosition : MonoBehaviour
             DrawingMod = Mod.NotDrawing;
             playerManager.ToggleMovement(true);
         }   
+    }
+    public void StartDrawing(Mod mod)
+    {
+        IndicatorCenter = GridPosition;
+        if (DrawingMod == Mod.NotDrawing)
+            playerManager.ToggleMovement(false);
+        DrawingMod = mod;
     }
     public void DrawLine(Tilemap tilemap, Tile tile,int Length)
     {
@@ -133,6 +174,7 @@ public class GetGridPosition : MonoBehaviour
         switch(Radius)
         {
             case 1:
+                positions.Clear();
                 tilemap.SetTile(IndicatorCenter + new Vector3Int(1, 0, 0), tile);
                 tilemap.SetTile(IndicatorCenter + new Vector3Int(-1, 0, 0), tile);
                 tilemap.SetTile(IndicatorCenter + new Vector3Int(0, 1, 0), tile);
@@ -152,6 +194,50 @@ public class GetGridPosition : MonoBehaviour
                         }
                     }
                 }
+                break;
+        }
+    }
+    public void DrawCone(Tilemap tilemap, Tile tile, int size)
+    {
+        Vector3Int other;
+        if (direction.x != 0)
+        {
+            other = new Vector3Int(0, direction.x ,0);
+        }else
+            other = new Vector3Int(direction.y ,0 ,0);
+        switch (size)
+        {
+            case 1:
+                positions.Clear();
+                tilemap.SetTile(GridPosition + direction, tile);
+                tilemap.SetTile(GridPosition + direction * 2, tile);
+                tilemap.SetTile(GridPosition + direction * 3, tile);
+                tilemap.SetTile(GridPosition + direction * 2 + other, tile);
+                tilemap.SetTile(GridPosition + direction * 2 - other, tile);
+                tilemap.SetTile(GridPosition + direction * 3 + other, tile);
+                tilemap.SetTile(GridPosition + direction * 3 + other * 2, tile);
+                tilemap.SetTile(GridPosition + direction * 3 - other, tile);
+                tilemap.SetTile(GridPosition + direction * 3 - other *2, tile);
+                break;
+            case 2:
+                positions.Clear();
+                tilemap.SetTile(GridPosition + direction, tile);
+                tilemap.SetTile(GridPosition + direction * 2, tile);
+                tilemap.SetTile(GridPosition + direction * 3, tile);
+                tilemap.SetTile(GridPosition + direction * 4, tile);
+                tilemap.SetTile(GridPosition + direction * 2 + other, tile);
+                tilemap.SetTile(GridPosition + direction * 2 - other, tile);
+                tilemap.SetTile(GridPosition + direction * 3 + other, tile);
+                tilemap.SetTile(GridPosition + direction * 3 + other * 2, tile);
+                tilemap.SetTile(GridPosition + direction * 3 - other, tile);
+                tilemap.SetTile(GridPosition + direction * 3 - other * 2, tile);
+                tilemap.SetTile(GridPosition + direction * 4 + other, tile);
+                tilemap.SetTile(GridPosition + direction * 4 + other * 2, tile);
+                tilemap.SetTile(GridPosition + direction * 4 + other * 3, tile);
+                tilemap.SetTile(GridPosition + direction * 4 - other, tile);
+                tilemap.SetTile(GridPosition + direction * 4 - other * 2, tile);
+                tilemap.SetTile(GridPosition + direction * 4 - other * 3, tile);
+
                 break;
         }
     }

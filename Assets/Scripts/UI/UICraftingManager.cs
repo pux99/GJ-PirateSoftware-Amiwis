@@ -9,6 +9,7 @@ public class UICraftingManager : MonoBehaviour
     [SerializeField] private InventorySlot[] CraftingSlot = new InventorySlot[2];
     //[SerializeField] private InventorySlot ResaultImage;
     [SerializeField] private Potion potion;
+    public GetGridPosition potiontrower;
     public void AddToCrating(Herb herb)
     {
         for (int i = 0; i < CraftingSlot.Length;i++)
@@ -89,5 +90,32 @@ public class UICraftingManager : MonoBehaviour
             }
         }
         else potion.ClearSlot();
+    }
+
+    public void throwing()
+    {
+        GetGridPosition.Mod type= GetGridPosition.Mod.NotDrawing;
+        switch (potion.Type)
+        {
+            case Potion.PotionType.Cone:
+                type = GetGridPosition.Mod.DrawingCone;
+                break;
+            case Potion.PotionType.Circle:
+                type = GetGridPosition.Mod.DrawingCircle;
+                break;
+            case Potion.PotionType.Line:
+                type = GetGridPosition.Mod.DrawingLine;
+                break;
+            case Potion.PotionType.SmallCicle:
+                type = GetGridPosition.Mod.DrawingCircle;
+                break;
+            case Potion.PotionType.SmallCone:
+                type = GetGridPosition.Mod.DrawingCone;
+                break;
+            case Potion.PotionType.SmallLine:
+                type = GetGridPosition.Mod.DrawingLine;
+                break;
+        }
+        potiontrower.StartDrawing(type);
     }
 }

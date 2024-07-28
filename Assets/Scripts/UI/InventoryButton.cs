@@ -19,6 +19,7 @@ public class InventoryButton : MonoBehaviour
     private bool expand;
     private bool openInventory; 
     private bool inventoryAction;
+    [SerializeField] private GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,10 +80,12 @@ public class InventoryButton : MonoBehaviour
         if (openInventory)
         {
             pointToMove = buttonStartingPosition - new Vector3(fullDistance, 0, 0);
+            gameManager.StopTime(false);
         }
         else
         {
             pointToMove = buttonStartingPosition;
+            gameManager.StopTime(true);
         }    
         ChangePosition = true;
         CurrentSpeed = openOrCloseSpeed;
