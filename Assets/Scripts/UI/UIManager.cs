@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Button InventoryButton;
+    [SerializeField] public Button InventoryButton;
     void Start()
     {
         

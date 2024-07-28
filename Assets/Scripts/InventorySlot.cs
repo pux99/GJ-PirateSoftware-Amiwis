@@ -9,12 +9,14 @@ public class InventorySlot : MonoBehaviour
     public Image slotImage;
     public Herb herb;
     public UnityEvent<Herb> AddHerbToCrafting=new UnityEvent<Herb>();
+    bool added;
 
     public void addHerb()
     {
-        if(herb != null)
+        if(herb != null&&!added)
         {
             AddHerbToCrafting.Invoke(herb);
+            added = true;
         }
     }
     public void SetSlot(Herb Nherb)
@@ -29,5 +31,6 @@ public class InventorySlot : MonoBehaviour
         slotImage.sprite=null;
         slotImage.enabled=false;
         herb=null;
+        added = false;
     }
 }

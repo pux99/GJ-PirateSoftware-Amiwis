@@ -36,6 +36,13 @@ public class Inventory : MonoBehaviour
             herbs[index] = null;
         }
     }
+    public void ConsumeHerb(int index)
+    {
+        if (index >= 0 && index < herbs.Length)
+        {
+            herbs[index] = null;
+        }
+    }
     public void GrabHerb(Vector3 position)
     {
         if (CheckIfInventoryIsFull())
