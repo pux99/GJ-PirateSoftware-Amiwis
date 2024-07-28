@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private Inventory inventory;
+    [SerializeField] public Inventory inventory;
     public UnityEvent PlayerMove=new UnityEvent();
     [SerializeField] private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
     {
         
     }
+    
     public void ToggleMovement(bool Mode)
     {
         playerMovement.ToggleMovement(Mode);

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class UIInventoryManager : MonoBehaviour
 {
-    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] public PlayerManager playerManager;
     [SerializeField] private UICraftingManager craftingManager;
-    [SerializeField] private InventorySlot[] slots = new InventorySlot[6];
+    [SerializeField] public InventorySlot[] slots = new InventorySlot[6];
+    public UIManager uimanager;
     void Start()
     {
         foreach (var slot in slots)

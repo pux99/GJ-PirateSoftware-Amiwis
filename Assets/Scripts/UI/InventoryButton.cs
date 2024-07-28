@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryButton : MonoBehaviour
@@ -81,11 +82,13 @@ public class InventoryButton : MonoBehaviour
         {
             pointToMove = buttonStartingPosition - new Vector3(fullDistance, 0, 0);
             gameManager.StopTime(false);
+            EventSystem.current.sendNavigationEvents = true;
         }
         else
         {
             pointToMove = buttonStartingPosition;
             gameManager.StopTime(true);
+            EventSystem.current.sendNavigationEvents = false;
         }    
         ChangePosition = true;
         CurrentSpeed = openOrCloseSpeed;

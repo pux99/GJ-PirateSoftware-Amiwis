@@ -1,8 +1,10 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
@@ -25,6 +27,9 @@ public class GetGridPosition : MonoBehaviour
     [SerializeField] private float couldown;
     public float couldownTimer;
     [SerializeField] PlayerManager playerManager;
+    int size;
+    bool PreventHoldingSpace;
+    [SerializeField] private UICraftingManager manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +40,14 @@ public class GetGridPosition : MonoBehaviour
     void Update()
     {
         GridPosition = grid.WorldToCell(transform.position);
+        if (DrawingMod != Mod.NotDrawing)
+        { 
+            EventSystem.current.sendNavigationEvents = false;
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                PreventHoldingSpace=true;
+            }
+        }
         switch (DrawingMod)
         {
             case Mod.DrawingLine:
@@ -42,45 +55,36 @@ public class GetGridPosition : MonoBehaviour
                 {
                     case 1:
                         direction = new Vector3Int(1, 0, 0);
-                        IndicatiorTilemap.ClearAllTiles();
-                        DrawLine(IndicatiorTilemap, Indicator, 5);
                         break;
                     case -1:
                         direction = new Vector3Int(-1, 0, 0);
-                        IndicatiorTilemap.ClearAllTiles();
-                        DrawLine(IndicatiorTilemap, Indicator, 5);
                         break;
                 }
                 switch (Input.GetAxisRaw("Vertical"))
                 {
                     case 1:
                         direction = new Vector3Int(0, 1, 0);
-                        IndicatiorTilemap.ClearAllTiles();
-                        DrawLine(IndicatiorTilemap, Indicator, 5);
                         break;
                     case -1:
-                        direction = new Vector3Int(0, -1, 0);
-                        IndicatiorTilemap.ClearAllTiles();
-                        DrawLine(IndicatiorTilemap, Indicator, 5);
+                        direction = new Vector3Int(0, -1, 0); 
                         break;
                 }
-                if (Input.GetKeyDown(KeyCode.Space))
+                IndicatiorTilemap.ClearAllTiles();
+                DrawLine(IndicatiorTilemap, Indicator, size);
+                if (Input.GetKeyDown(KeyCode.Space)&& PreventHoldingSpace)
                 {
-                    IndicatiorTilemap.ClearAllTiles();
-                    DrawLine(ShadowTilemap, Shadow, 5);
-                    DrawLine(BlackTilemap, Black, 5);
-                    DrawingMod = Mod.NotDrawing;
-                    playerManager.ToggleMovement(true);
+                    
+                    DrawLine(ShadowTilemap, Shadow, size);
+                    DrawLine(BlackTilemap, Black, size);
+                    PosPlacemente();
                 }
                 break;
             case Mod.DrawingCircle:
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) && PreventHoldingSpace)
                 {
-                    IndicatiorTilemap.ClearAllTiles();
-                    DrawCircle(ShadowTilemap, Shadow, 2);
-                    DrawCircle(BlackTilemap, Black, 2);
-                    DrawingMod = Mod.NotDrawing;
-                    playerManager.ToggleMovement(true);
+                    DrawCircle(ShadowTilemap, Shadow, size);
+                    DrawCircle(BlackTilemap, Black, size);
+                    PosPlacemente();
                 }
                 if (couldownTimer < 0)
                 {
@@ -97,12 +101,12 @@ public class GetGridPosition : MonoBehaviour
                     case 1:
                         direction = new Vector3Int(1, 0, 0);
                         IndicatiorTilemap.ClearAllTiles();
-                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        DrawCone(IndicatiorTilemap, Indicator, size);
                         break;
                     case -1:
                         direction = new Vector3Int(-1, 0, 0);
                         IndicatiorTilemap.ClearAllTiles();
-                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        DrawCone(IndicatiorTilemap, Indicator, size);
                         break;
                 }
                 switch (Input.GetAxisRaw("Vertical"))
@@ -110,55 +114,49 @@ public class GetGridPosition : MonoBehaviour
                     case 1:
                         direction = new Vector3Int(0, 1, 0);
                         IndicatiorTilemap.ClearAllTiles();
-                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        DrawCone(IndicatiorTilemap, Indicator, size);
                         break;
                     case -1:
                         direction = new Vector3Int(0, -1, 0);
                         IndicatiorTilemap.ClearAllTiles();
-                        DrawCone(IndicatiorTilemap, Indicator, 2);
+                        DrawCone(IndicatiorTilemap, Indicator, size);
                         break;
                 }
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.Space) && PreventHoldingSpace)
                 {
-                    IndicatiorTilemap.ClearAllTiles();
-                    DrawCone(ShadowTilemap, Shadow, 1);
-                    DrawCone(BlackTilemap, Black, 1);
-                    DrawingMod = Mod.NotDrawing;
-                    playerManager.ToggleMovement(true);
+                    DrawCone(ShadowTilemap, Shadow, size);
+                    DrawCone(BlackTilemap, Black, size);
+                    PosPlacemente();
                 }
                 break;
             default:
                 break;
         }
-        if (Input.GetKeyDown(KeyCode.C))
-        { 
-            IndicatorCenter = GridPosition;
-            if (DrawingMod == Mod.NotDrawing)
-                playerManager.ToggleMovement(false);
-            DrawingMod = Mod.DrawingCircle;
-
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {      
-            IndicatorCenter = GridPosition;
-            if(DrawingMod == Mod.NotDrawing)
-                playerManager.ToggleMovement(false);
-            //DrawingMod = Mod.DrawingLine;
-            DrawingMod = Mod.DrawingCone;
-        }
         if (Input.GetKeyDown(KeyCode.Escape)&&DrawingMod!=Mod.NotDrawing)
         {
             IndicatiorTilemap.ClearAllTiles();
             DrawingMod = Mod.NotDrawing;
-            playerManager.ToggleMovement(true);
+            EventSystem.current.sendNavigationEvents = true;
+            //playerManager.ToggleMovement(true);
         }   
     }
-    public void StartDrawing(Mod mod)
+    public void PosPlacemente()
+    {
+        IndicatiorTilemap.ClearAllTiles();
+        DrawingMod = Mod.NotDrawing;
+        playerManager.ToggleMovement(true);
+        EventSystem.current.sendNavigationEvents = true;
+        manager.consumeHerbs();
+        manager.inventory.uimanager.InventoryButton.onClick.Invoke();
+    }
+    public void StartDrawing(Mod mod,int size)
     {
         IndicatorCenter = GridPosition;
         if (DrawingMod == Mod.NotDrawing)
             playerManager.ToggleMovement(false);
         DrawingMod = mod;
+        this.size=size;
+        PreventHoldingSpace = false;
     }
     public void DrawLine(Tilemap tilemap, Tile tile,int Length)
     {
@@ -269,7 +267,7 @@ public class GetGridPosition : MonoBehaviour
         {
             couldownTimer = couldown;
             IndicatiorTilemap.ClearAllTiles();
-            DrawCircle(IndicatiorTilemap, Indicator, 2);
+            DrawCircle(IndicatiorTilemap, Indicator, size);
         }
     }
 }
