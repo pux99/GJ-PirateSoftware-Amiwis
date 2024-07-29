@@ -745,6 +745,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   herbType: 4
+  TurnOfAligth: 0
+  light2d: {fileID: 0}
 --- !u!212 &120687161
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1099,7 +1101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 81815667}
-  NumberOfKeys: 2
+  NumberOfKeys: 1
+  toActivate: {fileID: 1635487029}
 --- !u!61 &207495651
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1304,6 +1307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   herbType: 2
+  TurnOfAligth: 0
+  light2d: {fileID: 0}
 --- !u!212 &215547121
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -60012,6 +60017,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   herbType: 3
+  TurnOfAligth: 0
+  light2d: {fileID: 0}
 --- !u!212 &1170236989
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -64564,6 +64571,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   herbType: 4
+  TurnOfAligth: 0
+  light2d: {fileID: 0}
 --- !u!212 &1276196259
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -65622,6 +65631,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   herbType: 2
+  TurnOfAligth: 0
+  light2d: {fileID: 0}
 --- !u!212 &1496226011
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -66451,6 +66462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   herbType: 3
+  TurnOfAligth: 0
+  light2d: {fileID: 0}
 --- !u!212 &1630885079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -66644,6 +66657,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   TeleportPosition: {x: 10, y: 10, z: -2}
+  ligth: {fileID: 1635487032}
 --- !u!114 &1635487032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67746,6 +67760,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   herbType: 3
+  TurnOfAligth: 0
+  light2d: {fileID: 0}
 --- !u!212 &1967773044
 SpriteRenderer:
   m_ObjectHideFlags: 0
