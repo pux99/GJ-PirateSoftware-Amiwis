@@ -31,6 +31,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
+        musicSource.volume = 1;
         Sound clip = Array.Find(musicSounds, x => x.name == name);
 
         if (clip != null)
