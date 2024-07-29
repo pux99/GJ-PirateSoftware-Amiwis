@@ -12,6 +12,7 @@ public class Inventory : MonoBehaviour
     public float couldownTimer;
     // Start is called before the first frame update
 
+    public PlayerAnimController playerController;
     public CameraShake cameraShake;
     public float shakeIntensity = 5f;
     public float shakeDuration = 0.5f;
@@ -64,6 +65,7 @@ public class Inventory : MonoBehaviour
                             hitColiders.transform.parent = gameObject.transform;
                             herbs[i].TurnOff();
                             cameraShake.ShakeCamera(shakeIntensity, shakeDuration);
+                            playerController.PlayDeathAnimation();
                             break;
                         }
                     }
