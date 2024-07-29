@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     float delayClock;
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] public Transform pointToMove;
+    [SerializeField] public Vector3 LastPosition;
     [SerializeField] private LayerMask stopMovemet;
     [SerializeField] private Transform camera;
     [SerializeField] private GetAvarageColor avgColor;
@@ -54,9 +55,13 @@ public class PlayerMovement : MonoBehaviour
                 {
                     pointToMove.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
                     moving = true;
+                    
                 }              
                 if (moving)
-                { Moving.Invoke(); }
+                { 
+                    Moving.Invoke();
+                    LastPosition = transform.position;
+                }
             }
             Rotate(NextDirection);
             delayClock = delay;
@@ -64,8 +69,11 @@ public class PlayerMovement : MonoBehaviour
         }    
         if(Vector3.Distance(transform.position, pointToMove.position) <= 0.05f&&CanMove)
         {
-            if(moving==true)
+            if (moving == true)
+            {
                 delayClock = delay;
+                CheckLigthInPosition();
+            }
             moving = false;
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
             {
@@ -120,5 +128,15 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         CurrentDirection = dir;
+    }
+    void CheckLigthInPosition()
+    {
+        if (!NextTileIsValid(pointToMove.position))
+        {
+            Debug.Log("luz");
+            transform.position = LastPosition;
+            pointToMove.position = LastPosition;
+        }
+        
     }
 }
