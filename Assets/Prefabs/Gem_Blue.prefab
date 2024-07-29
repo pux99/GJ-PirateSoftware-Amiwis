@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3870373170816898443}
   - component: {fileID: 2198437314995436067}
   - component: {fileID: 1363009713565888455}
+  - component: {fileID: 4831126328423051457}
   m_Layer: 11
-  m_Name: Herb
+  m_Name: Gem_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 3546513714394744686}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1012.58905, y: -511.8495, z: -1.6607425}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 6e4d03a22433f2246a209889ec1c0cb4, type: 3}
-  m_Color: {r: 0.34509808, g: 0.55601627, b: 0.8784314, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 893810458f4be474bbc205e07baaf92f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -144,3 +145,75 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4831126328423051457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3546513714394744686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeIntensityEnabled: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 21300000, guid: 893810458f4be474bbc205e07baaf92f, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: -0.015149996, y: 0.020899996, z: 0}
+    m_Extent: {x: 0.43075, y: 0.30269998, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 0.5
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.01
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.40673783, y: -0.096069336, z: 0}
+  - {x: -0.37711543, y: -0.124186195, z: 0}
+  - {x: -0.34309852, y: -0.1562907, z: 0}
+  - {x: -0.2839351, y: -0.18713379, z: 0}
+  - {x: -0.2518713, y: -0.21988933, z: 0}
+  - {x: -0.15787716, y: -0.25146484, z: 0}
+  - {x: -0.018635616, y: -0.27132162, z: 0}
+  - {x: 0.12491908, y: -0.2491862, z: 0}
+  - {x: 0.22086635, y: -0.2183431, z: 0}
+  - {x: 0.28320357, y: -0.18880208, z: 0}
+  - {x: 0.31274462, y: -0.15734863, z: 0}
+  - {x: 0.37638393, y: -0.09712727, z: 0}
+  - {x: 0.40600634, y: 0.027994798, z: 0}
+  - {x: 0.37744188, y: 0.12744142, z: 0}
+  - {x: 0.31274462, y: 0.19022624, z: 0}
+  - {x: 0.2823898, y: 0.22062176, z: 0}
+  - {x: 0.22135463, y: 0.25016278, z: 0}
+  - {x: 0.1260584, y: 0.28243002, z: 0}
+  - {x: -0.0042313174, y: 0.31404623, z: 0}
+  - {x: -0.15836544, y: 0.28141278, z: 0}
+  - {x: -0.25081336, y: 0.25016278, z: 0}
+  - {x: -0.28426063, y: 0.21936037, z: 0}
+  - {x: -0.34334266, y: 0.18721518, z: 0}
+  - {x: -0.37410438, y: 0.15718588, z: 0}
+  - {x: -0.40698197, y: 0.12683107, z: 0}
+  - {x: -0.43660438, y: 0.028157558, z: 0}
