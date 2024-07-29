@@ -7,20 +7,21 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-    enum Direction { Left, Right, Up, Down }
-    Direction CurrentDirection;
+    public enum Direction { Left, Right, Up, Down }
+    public Direction CurrentDirection;
     Direction NextDirection;
     [SerializeField] private float delay;
     float delayClock;
     [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private Transform pointToMove;
+    [SerializeField] public Transform pointToMove;
+    [SerializeField] public Vector3 LastPosition;
     [SerializeField] private LayerMask stopMovemet;
     [SerializeField] private Transform camera;
     [SerializeField] private GetAvarageColor avgColor;
-    Vector3 PreviusPosition;
     private bool tryingToMove = false;
     private bool moving=false;
     private bool CanMove=true;
+    public bool canMove { get { return CanMove; } }
     public UnityEvent Moving=new UnityEvent();
     // Start is called before the first frame update
     void Start()
@@ -41,11 +42,11 @@ public class PlayerMovement : MonoBehaviour
         {
             delayClock -= Time.deltaTime;
         }
-        if (tryingToMove && delayClock < 0)
+        if (tryingToMove && delayClock < 0&& CanMove)
         {            
             if (CurrentDirection == NextDirection&& (Input.GetAxisRaw("Vertical")!=0|| Input.GetAxisRaw("Horizontal")!=0))
             {
-                if (NextTileIsValid(pointToMove.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f)))
+                if (NextTileIsValid(pointToMove.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f)) && Input.GetAxisRaw("Vertical") == 0)
                 {
                     pointToMove.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);                   
                     moving = true;
@@ -54,18 +55,25 @@ public class PlayerMovement : MonoBehaviour
                 {
                     pointToMove.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
                     moving = true;
+                    
                 }              
                 if (moving)
-                { Moving.Invoke(); }
+                { 
+                    Moving.Invoke();
+                    LastPosition = transform.position;
+                }
             }
             Rotate(NextDirection);
             delayClock = delay;
             tryingToMove = false;
         }    
-        if(Vector3.Distance(transform.position, pointToMove.position) <= 0.05f)
+        if(Vector3.Distance(transform.position, pointToMove.position) <= 0.05f&&CanMove)
         {
-            if(moving==true)
+            if (moving == true)
+            {
                 delayClock = delay;
+                CheckLigthInPosition();
+            }
             moving = false;
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
             {
@@ -95,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         if (!Physics2D.OverlapCircle(position, 0.3f, stopMovemet) && ligth <= 100)
             return true;
         else
-            return false;
+         return false;
     }
     public void ToggleMovement(bool mode)
     {
@@ -120,5 +128,15 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         CurrentDirection = dir;
+    }
+    void CheckLigthInPosition()
+    {
+        if (!NextTileIsValid(pointToMove.position))
+        {
+            Debug.Log("luz");
+            transform.position = LastPosition;
+            pointToMove.position = LastPosition;
+        }
+        
     }
 }

@@ -5,22 +5,26 @@ using UnityEngine.Rendering.Universal;
 
 public class Herb : MonoBehaviour
 {
-    public enum HerbType { Red,Blue,Green}
+    public enum HerbType { Red,Blue,Green,Key,Expancion}
     public HerbType herbType;
     private SpriteRenderer sprite;
     private Collider2D col;
-    private Light2D light;
+    public bool TurnOfAligth=false;
+    public Light2D light2d;
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
-        light = GetComponent<Light2D>();
     }
     public void TurnOff()
     {
         sprite.enabled = false;
         col.enabled = false;
-        light.enabled = false;
+        if (TurnOfAligth)
+        {
+            if(light2d != null)
+                light2d.enabled = false;
+        }
     }
     public void TurnOn()
     {

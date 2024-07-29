@@ -8,6 +8,7 @@ public class Potion : MonoBehaviour
 {
     public enum PotionType
     {
+        non,
         Line,
         SmallLine,
         Circle,

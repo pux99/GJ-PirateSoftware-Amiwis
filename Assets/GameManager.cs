@@ -5,7 +5,8 @@ using static Interfaces;
 
 public class GameManager : MonoBehaviour
 {
-    private int _turnCount;
+    public int TotalTurns;
+    public static int _turnCount=10;
     public int turnCount {  get { return _turnCount; } }
     [SerializeField]public PlayerManager _playerManager;
     public static List<EnemyActor> actors= new List<EnemyActor>();
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _playerManager.PlayerMove.AddListener(NextTurn);
+        _turnCount = TotalTurns;
     }
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class GameManager : MonoBehaviour
     }
     public void NextTurn()
     {
-        _turnCount++;
+        _turnCount--;
         Debug.Log(turnCount);
         foreach (EnemyActor actor in actors)
         {
