@@ -26,6 +26,7 @@ public class InventoryButton : MonoBehaviour
     {
         buttonStartingPosition = transform.position;
         InventoryStartingPosition= inventory.transform.position;
+        //fullDistance = inventory.
     }
 
     // Update is called once per frame
