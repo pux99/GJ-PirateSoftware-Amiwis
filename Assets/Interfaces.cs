@@ -8,4 +8,8 @@ public class Interfaces
     {
         void MakeAction();
     }
+    public interface activable
+    {
+        void Activate();
+    }
 }

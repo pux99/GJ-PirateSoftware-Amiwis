@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class UICraftingManager : MonoBehaviour
 {
-    [SerializeField] private InventorySlot[] CraftingSlot = new InventorySlot[2];
+    [SerializeField] public InventorySlot[] CraftingSlot = new InventorySlot[2];
     //[SerializeField] private InventorySlot ResaultImage;
     [SerializeField] private Potion potion;
     public GetGridPosition potiontrower;
     public UIInventoryManager inventory;
+    bool cleaning;
     private void Start()
     {
         SetResault();
     }
     public void AddToCrating(Herb herb)
     {
-        for (int i = 0; i < CraftingSlot.Length;i++)
+        for (int i = 0; i < CraftingSlot.Length; i++)
         {
-            if (CraftingSlot[i].herb== null)
+            if (CraftingSlot[i].herb == null)
             {
                 //CraftingSlot[i].herb = herb;
                 CraftingSlot[i].SetSlot(herb);
@@ -28,28 +30,46 @@ public class UICraftingManager : MonoBehaviour
             }
         }
     }
+    public void RemoveFromCrafting(InventorySlot inventoryslot)
+    {
+        if(inventoryslot.herb != null)
+        {
+            for (int i = 0; i < inventory.slots.Length; i++)
+            {
+                if (inventory.slots[i].herb != null&& inventoryslot.herb.gameObject == inventory.slots[i].herb.gameObject)
+                {
+                    inventory.slots[i].OutOfCrafting();
+                    cleaning=true;
+                }
+            }
+        }
+        SetResault();
+    }
     public void consumeHerbs()
     {
+        Herb toDestroy=null;
         foreach (InventorySlot slot in CraftingSlot)
         {
             for(int i = 0;i < inventory.slots.Length; i++)
             {
                 if (inventory.slots[i].herb!=null && slot.herb!=null && slot.herb.gameObject == inventory.slots[i].herb.gameObject)
                 {
+                    toDestroy=slot.herb;
                     inventory.slots[i].ClearSlot();
                     inventory.playerManager.inventory.ConsumeHerb(i);
                 }
             }
             slot.ClearSlot();
-            //Destroy(slot.herb.gameObject);
+            if (toDestroy != null)
+                Destroy(toDestroy.gameObject);
         }
         SetResault();
     }
     public void SetResault()
     {
-        if (CraftingSlot[0].herb!=null && CraftingSlot[1].herb != null)
+        if (CraftingSlot[0].herb != null && CraftingSlot[1].herb != null)
         {
-            switch(CraftingSlot[0].herb.herbType)
+            switch (CraftingSlot[0].herb.herbType)
             {
                 case Herb.HerbType.Red:
                     switch (CraftingSlot[1].herb.herbType)
@@ -97,7 +117,17 @@ public class UICraftingManager : MonoBehaviour
 
             }
         }
-        else potion.ClearSlot();
+        else 
+        {
+            potion.Type=Potion.PotionType.non;
+            potion.ClearSlot();
+        }
+        if (cleaning)
+        {
+            potion.Type = Potion.PotionType.non;
+            potion.ClearSlot();
+            cleaning = false;
+        }
     }
 
     public void throwing()
@@ -130,6 +160,11 @@ public class UICraftingManager : MonoBehaviour
                 type = GetGridPosition.Mod.DrawingLine;
                 size = 3;
                 break;
+            case Potion.PotionType.non:
+                type = GetGridPosition.Mod.NotDrawing;
+                size = 3;
+                break;
+
         }
         potiontrower.StartDrawing(type,size);
     }

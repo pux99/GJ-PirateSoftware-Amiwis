@@ -9,7 +9,7 @@ public class InventorySlot : MonoBehaviour
     public Image slotImage;
     public Herb herb;
     public UnityEvent<Herb> AddHerbToCrafting=new UnityEvent<Herb>();
-    bool added;
+    [SerializeField]bool added;
 
     public void addHerb()
     {
@@ -25,6 +25,10 @@ public class InventorySlot : MonoBehaviour
         slotImage.sprite = herb.getSprite();
         slotImage.color = herb.getColor();
         slotImage.enabled = true;
+    }
+    public void OutOfCrafting()
+    {
+        added = false;
     }
     public void ClearSlot()
     {

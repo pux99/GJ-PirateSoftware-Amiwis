@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] public PlayerMovement playerMovement;
     [SerializeField] public Inventory inventory;
     public UnityEvent PlayerMove=new UnityEvent();
     [SerializeField] private SpriteRenderer spriteRenderer;
+    public int InventorySlots = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,10 @@ public class PlayerManager : MonoBehaviour
     public Herb[] GetInventory()
     {
         return inventory.herbs;
+    }
+    public Herb[] GetInventoryKeys()
+    {
+        return inventory.Keys;
     }
     void playerMoving()
     {
