@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     public void EndOfGame(bool Wining,string coment)
     {
         EndOfGameScrean.SetActive(true);
+        Time.timeScale= 0;
         if (Wining)
         {
             Win.SetActive(true);
