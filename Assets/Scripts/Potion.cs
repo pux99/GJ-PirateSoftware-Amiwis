@@ -18,6 +18,12 @@ public class Potion : MonoBehaviour
     }
     public PotionType Type;
     public Image slotImage;
+    public Sprite conoChico;
+    public Sprite conoGrande;
+    public Sprite circuloChico;
+    public Sprite circulo;
+    public Sprite lineaChica;
+    public Sprite linea;
 
     public void SetSlot(PotionType PType)
     {
@@ -34,22 +40,22 @@ public class Potion : MonoBehaviour
         switch (Type)
         {
             case PotionType.Line:
-                slotImage.color = new Color32(21, 41, 61,255);
+                slotImage.sprite = linea;
                 break;
             case PotionType.SmallLine:
-                slotImage.color = new Color32(61, 41, 21,255);
+                slotImage.sprite = lineaChica;
                 break;
             case PotionType.Circle:
-                slotImage.color = new Color32(255, 0, 64,255);
+                slotImage.sprite = circulo;
                 break;
             case PotionType.SmallCicle:
-                slotImage.color = new Color32(255, 0, 32, 255);
+                slotImage.sprite = circuloChico;
                 break;
             case PotionType.Cone:
-                slotImage.color = new Color32(0, 128, 20, 255);
+                slotImage.sprite = conoGrande;
                 break;
             case PotionType.SmallCone:
-                slotImage.color = new Color32(0, 64, 20, 255);
+                slotImage.sprite = conoChico;
                 break;
         }
     }
