@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Vector3 LastPosition;
     [SerializeField] private LayerMask stopMovemet;
     [SerializeField] private LayerMask DeadIndicator;
+    [SerializeField] private LayerMask Shadow;
     [SerializeField] private Transform camera;
     [SerializeField] private GetAvarageColor avgColor;
     private bool tryingToMove = false;
@@ -78,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             if (moving == true)
             {
                 delayClock = delay;
-                CheckLigthInPosition();
+                //CheckLigthInPosition();
                 if (!NextTileIsValidOverlap())
                 {
                     Debug.Log("perdiste");
@@ -122,7 +123,10 @@ public class PlayerMovement : MonoBehaviour
         if (Physics2D.OverlapCircle(transform.position + Vector3.up, 0.45f, DeadIndicator) && Physics2D.OverlapCircle(transform.position + Vector3.down, 0.45f, DeadIndicator)&&
             Physics2D.OverlapCircle(transform.position + Vector3.left, 0.45f, DeadIndicator) && Physics2D.OverlapCircle(transform.position + Vector3.right, 0.45f, DeadIndicator))
         {
-            int herbCount = 0;
+            if (Physics2D.OverlapCircle(transform.position + Vector3.up, 0.45f, Shadow) || Physics2D.OverlapCircle(transform.position + Vector3.down, 0.45f, Shadow) ||
+                Physics2D.OverlapCircle(transform.position + Vector3.left, 0.45f, Shadow) || Physics2D.OverlapCircle(transform.position + Vector3.right, 0.45f, Shadow))
+                return true;
+                int herbCount = 0;
             foreach (Herb herb in inventory.herbs)
             {
                 if (herb != null)

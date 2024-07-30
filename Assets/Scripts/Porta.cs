@@ -9,6 +9,8 @@ public class Porta : MonoBehaviour, activable
     public Vector3 TeleportPosition;
     bool active;
     public Light2D ligth;
+    public bool victory;
+    public UIManager manager;
     // Start is called before the first frame update
     public void Activate()
     {
@@ -23,7 +25,12 @@ public class Porta : MonoBehaviour, activable
             collision.transform.position = TeleportPosition;
             if(collision.GetComponent<PlayerMovement>() != null) 
             {
-                collision.GetComponent<PlayerMovement>().pointToMove.position = TeleportPosition;
+                if(!victory)
+                    collision.GetComponent<PlayerMovement>().pointToMove.position = TeleportPosition;
+                else
+                {
+                    manager.EndOfGame(true, "Congratulation Blobli got home safe");
+                }
             }
         }
         
