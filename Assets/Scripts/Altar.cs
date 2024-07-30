@@ -8,6 +8,10 @@ public class Altar : MonoBehaviour
     public int NumberOfKeys;
     public GameObject toActivate;
     public Interfaces.activable active;
+
+    public Sprite newSprite; // The new sprite you want to change to
+
+    private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +39,7 @@ public class Altar : MonoBehaviour
                 inventory.Keys[i] = null;
             }
             toActivate.GetComponent<Interfaces.activable>().Activate();
+            spriteRenderer.sprite = newSprite;
         }
     }
     // Update is called once per frame

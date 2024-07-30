@@ -43,7 +43,7 @@ public class PlayerAnimController : MonoBehaviour
 
         // Wait for one frame to ensure the sprite change is rendered
         yield return null;
-        cameraShake.ShakeCamera(shakeIntensity, shakeDuration);
+        cameraShake.ShakeCamera();
         // Trigger the death animation
         animator.SetTrigger("Die");
     }
