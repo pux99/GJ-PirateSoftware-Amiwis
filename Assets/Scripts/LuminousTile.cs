@@ -20,6 +20,14 @@ public class LuminousTile : MonoBehaviour, EnemyActor
     private bool isfungi0 = true;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("SpriteRenderer component not found on this GameObject.");
+        }
+    }
     void Start()
     {
         GameManager.actors.Add(this);
@@ -33,6 +41,10 @@ public class LuminousTile : MonoBehaviour, EnemyActor
 
     private void changeImage()
     {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
         if (isfungi0)
         {
             spriteRenderer.sprite = img_fungi1;
