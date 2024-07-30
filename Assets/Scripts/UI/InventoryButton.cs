@@ -34,7 +34,7 @@ public class InventoryButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ChangePosition&&!gameManager._playerManager.playerMovement.moving)
+        if (ChangePosition)
         {
             transform.position =Vector3.MoveTowards(transform.position, pointToMove, CurrentSpeed * Time.deltaTime);
             if(expand)
@@ -78,22 +78,26 @@ public class InventoryButton : MonoBehaviour
     }
     public void OpenOrCloseInventory()
     {
-        openInventory= !openInventory;
-        expand = openInventory;
-        inventoryAction = true;
-        if (openInventory)
+        if(!gameManager._playerManager.playerMovement.moving)
         {
-            pointToMove = buttonStartingPosition - new Vector3(fullDistance, 0, 0);
-            gameManager.StopTime(false);
-            EventSystem.current.sendNavigationEvents = true;
+            openInventory = !openInventory;
+            expand = openInventory;
+            inventoryAction = true;
+            if (openInventory)
+            {
+                pointToMove = buttonStartingPosition - new Vector3(fullDistance, 0, 0);
+                gameManager.StopTime(false);
+                EventSystem.current.sendNavigationEvents = true;
+            }
+            else
+            {
+                pointToMove = buttonStartingPosition;
+                gameManager.StopTime(true);
+                EventSystem.current.sendNavigationEvents = false;
+            }
+            ChangePosition = true;
+            CurrentSpeed = openOrCloseSpeed;
         }
-        else
-        {
-            pointToMove = buttonStartingPosition;
-            gameManager.StopTime(true);
-            EventSystem.current.sendNavigationEvents = false;
-        }    
-        ChangePosition = true;
-        CurrentSpeed = openOrCloseSpeed;
+        
     }
 }
