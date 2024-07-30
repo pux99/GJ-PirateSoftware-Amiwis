@@ -10,16 +10,20 @@ public class GameManager : MonoBehaviour
     public int turnCount {  get { return _turnCount; } }
     [SerializeField]public PlayerManager _playerManager;
     public static List<EnemyActor> actors= new List<EnemyActor>();
-    
+
+    private void Awake()
+    {
+        if (actors.Count > 0)
+        {
+            actors.Clear();
+        }
+        Time.timeScale = 1;
+    }
     // Start is called before the first frame update
     void Start()
     {
         _playerManager.PlayerMove.AddListener(NextTurn);
         _turnCount = TotalTurns;
-        if(actors.Count > 0)
-        {
-            actors.Clear();
-        }
     }
 
     // Update is called once per frame

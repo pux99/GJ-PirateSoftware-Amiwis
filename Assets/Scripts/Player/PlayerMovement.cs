@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private bool CanMove=true;
     public bool canMove { get { return CanMove; } }
     public UnityEvent Moving=new UnityEvent();
+    public Inventory inventory;
+    public UIManager manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +77,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 delayClock = delay;
                 CheckLigthInPosition();
+                if (!CheckForPosibleActions())
+                {
+                    Debug.Log("perdiste");
+                    manager.EndOfGame(false, "You are trap");
+                }
             }
             moving = false;
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
@@ -102,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         float ligth;
         ligth= avgColor.CheckLigthValue();
         Debug.Log("ligthLevel:"+ligth);
-        if (!Physics2D.OverlapCircle(position, 0.45f, stopMovemet) && ligth <= 100)
+        if (!Physics2D.OverlapCircle(position, 0.45f, stopMovemet) && ligth <= 175)
             return true;
         else
          return false;
@@ -130,6 +137,24 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         CurrentDirection = dir;
+    }
+    bool CheckForPosibleActions()
+    {
+        if(!NextTileIsValid(transform.position + Vector3.up)&& !NextTileIsValid(transform.position + Vector3.down)&&
+           !NextTileIsValid(transform.position + Vector3.right)&& !NextTileIsValid(transform.position + Vector3.left))
+        {
+            int herbCount=0;
+            foreach(Herb herb in inventory.herbs)
+            {
+                if(herb!=null)
+                {
+                    herbCount++;
+                }
+            }
+            if(herbCount<2)
+                return false;
+        }
+        return true;
     }
     void CheckLigthInPosition()
     {
