@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform camera;
     [SerializeField] private GetAvarageColor avgColor;
     private bool tryingToMove = false;
-    private bool moving=false;
+    public bool moving=false;
     private bool CanMove=true;
     public bool canMove { get { return CanMove; } }
     public UnityEvent Moving=new UnityEvent();
