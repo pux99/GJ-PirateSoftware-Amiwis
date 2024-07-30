@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     public void NextTurn()
     {
         _turnCount--;
-        Debug.Log(turnCount);
         foreach (EnemyActor actor in actors)
         {
             actor.MakeAction();
