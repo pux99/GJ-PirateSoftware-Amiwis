@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     {
         _playerManager.PlayerMove.AddListener(NextTurn);
         _turnCount = TotalTurns;
+        if(actors.Count > 0)
+        {
+            actors.Clear();
+        }
     }
 
     // Update is called once per frame
