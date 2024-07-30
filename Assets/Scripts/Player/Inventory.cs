@@ -86,7 +86,8 @@ public class Inventory : MonoBehaviour
                 switch (hitColiders.gameObject.GetComponent<Herb>().herbType)
                 {
                     case Herb.HerbType.Expancion:
-                        playerManager.InventorySlots++;
+                        if(playerManager.InventorySlots<4)
+                            playerManager.InventorySlots++;
                         Destroy(hitColiders.gameObject);
                         break;
                     case Herb.HerbType.Key:

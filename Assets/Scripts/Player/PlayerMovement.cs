@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
                 if (moving)
                 { 
                     Moving.Invoke();
+                    AudioManager.Instance.PlaySFX("Slider");
                     LastPosition = transform.position;
                 }
             }
@@ -80,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
                 if (!CheckForPosibleActions())
                 {
                     Debug.Log("perdiste");
-                    manager.EndOfGame(false, "You are trap");
+                    manager.EndOfGame(false, "You are trapped");
                 }
             }
             moving = false;

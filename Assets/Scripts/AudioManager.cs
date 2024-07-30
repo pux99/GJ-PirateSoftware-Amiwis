@@ -51,6 +51,8 @@ public class AudioManager : MonoBehaviour
 
         if (clip != null)
         {
+            
+            sfxSource.pitch= UnityEngine.Random.Range(0.8f, 1.2f);
             sfxSource.PlayOneShot(clip.clip);
         }
         else
