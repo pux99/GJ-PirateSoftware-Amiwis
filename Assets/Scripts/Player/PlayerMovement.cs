@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Transform pointToMove;
     [SerializeField] public Vector3 LastPosition;
     [SerializeField] private LayerMask stopMovemet;
+    [SerializeField] private LayerMask DeadIndicator;
     [SerializeField] private Transform camera;
     [SerializeField] private GetAvarageColor avgColor;
     private bool tryingToMove = false;
@@ -78,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 delayClock = delay;
                 CheckLigthInPosition();
-                if (!CheckForPosibleActions())
+                if (!NextTileIsValidOverlap())
                 {
                     Debug.Log("perdiste");
                     manager.EndOfGame(false, "You are trapped");
@@ -109,11 +110,30 @@ public class PlayerMovement : MonoBehaviour
     {
         float ligth;
         ligth= avgColor.CheckLigthValue();
-        Debug.Log("ligthLevel:"+ligth);
         if (!Physics2D.OverlapCircle(position, 0.45f, stopMovemet) && ligth <= 175)
             return true;
         else
          return false;
+    }
+    bool NextTileIsValidOverlap()
+    {
+        float ligth;
+        ligth = avgColor.CheckLigthValue();
+        if (Physics2D.OverlapCircle(transform.position + Vector3.up, 0.45f, DeadIndicator) && Physics2D.OverlapCircle(transform.position + Vector3.down, 0.45f, DeadIndicator)&&
+            Physics2D.OverlapCircle(transform.position + Vector3.left, 0.45f, DeadIndicator) && Physics2D.OverlapCircle(transform.position + Vector3.right, 0.45f, DeadIndicator))
+        {
+            int herbCount = 0;
+            foreach (Herb herb in inventory.herbs)
+            {
+                if (herb != null)
+                {
+                    herbCount++;
+                }
+            }
+            if (herbCount < 2)
+                return false;
+        }
+        return true;
     }
     public void ToggleMovement(bool mode)
     {
