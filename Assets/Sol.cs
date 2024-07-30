@@ -31,4 +31,15 @@ public class Sol : MonoBehaviour, EnemyActor
             counter = stepbetewinMovments;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<PlayerManager>()!=null)
+        {
+            Debug.Log("player GameOver");
+        }
+        if (collision.GetComponent<Herb>() != null&& collision.GetComponent<Herb>().herbType==Herb.HerbType.Key)
+        {
+            Debug.Log("key GameOver");
+        }
+    }
 }
