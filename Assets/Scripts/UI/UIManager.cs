@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] public Button InventoryButton;
     [SerializeField] public GameObject menu;
     public GetGridPosition drawer;
+    public GameObject EndOfGameScrean;
+    public GameObject Win;
+    public TextMeshProUGUI WinText;
+    public GameObject Loss;
+    public TextMeshProUGUI LossText;
     void Start()
     {
         
@@ -30,6 +36,22 @@ public class UIManager : MonoBehaviour
             if(menu.activeSelf)
                 menu.SetActive(false);
             else menu.SetActive(true);
+        }
+    }
+    public void EndOfGame(bool Wining,string coment)
+    {
+        EndOfGameScrean.SetActive(true);
+        if (Wining)
+        {
+            Win.SetActive(true);
+            Loss.SetActive(false);
+            WinText.text = coment;
+        }
+        else
+        {
+            Loss.SetActive(true);
+            Win.SetActive(false);
+            LossText.text = coment;
         }
     }
 }

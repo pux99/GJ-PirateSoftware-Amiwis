@@ -8,6 +8,7 @@ public class Sol : MonoBehaviour, EnemyActor
 {
     public int stepbetewinMovments;
     public int counter;
+    public UIManager manager;
     void Start()
     {
         GameManager.actors.Add(this);
@@ -36,10 +37,12 @@ public class Sol : MonoBehaviour, EnemyActor
         if (collision.GetComponent<PlayerManager>()!=null)
         {
             Debug.Log("player GameOver");
+            manager.EndOfGame(false, "Burn by the sun");
         }
         if (collision.GetComponent<Herb>() != null&& collision.GetComponent<Herb>().herbType==Herb.HerbType.Key)
         {
             Debug.Log("key GameOver");
+            manager.EndOfGame(false, "Portal Gem destroy by the sun");
         }
     }
 }
