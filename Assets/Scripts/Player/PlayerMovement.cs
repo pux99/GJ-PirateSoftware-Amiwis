@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         if(Vector3.Distance(transform.position, pointToMove.position) <= 0.05f&&CanMove)
         {
             transform.position = pointToMove.position;
+
             if (moving == true)
             {
                 delayClock = delay;
