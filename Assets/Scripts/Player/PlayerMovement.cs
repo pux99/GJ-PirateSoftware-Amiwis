@@ -100,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         float ligth;
         ligth= avgColor.CheckLigthValue();
         Debug.Log("ligthLevel:"+ligth);
-        if (!Physics2D.OverlapCircle(position, 0.3f, stopMovemet) && ligth <= 100)
+        if (!Physics2D.OverlapCircle(position, 0.45f, stopMovemet) && ligth <= 100)
             return true;
         else
          return false;

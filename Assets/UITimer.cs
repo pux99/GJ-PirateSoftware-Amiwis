@@ -9,6 +9,7 @@ public class UITimer : MonoBehaviour
     [SerializeField]public TextMeshProUGUI Unidad;
     public TextMeshProUGUI Decena; 
     public TextMeshProUGUI Centena;
+    public TextMeshProUGUI miles;
     public Image clockImage;
     int turns;
     int TotalTurns;
@@ -30,7 +31,8 @@ public class UITimer : MonoBehaviour
         Unidad.text = (turns % 10).ToString();
         Decena.text = ((turns/10) % 10).ToString();
         Centena.text = ((turns / 100) % 10).ToString();
-        if(turns<=TotalTurns-(TotalTurns/10)*(index+1))
+        miles.text = ((turns / 1000) % 10).ToString();
+        if (turns<=TotalTurns-(TotalTurns/10)*(index+1))
         {
             if(index<sprites.Count-1)
                 index++;

@@ -34,7 +34,7 @@ public class InventoryButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ChangePosition)
+        if (ChangePosition&&gameManager._playerManager.playerMovement.canMove)
         {
             transform.position =Vector3.MoveTowards(transform.position, pointToMove, CurrentSpeed * Time.deltaTime);
             if(expand)

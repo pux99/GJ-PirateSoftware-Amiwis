@@ -30,7 +30,10 @@ public class Altar : MonoBehaviour
     {
         if (TryToActivate())
         {
-            Debug.Log("active");
+            for (int i = 0;i < inventory.Keys.Length;i++)
+            {
+                inventory.Keys[i] = null;
+            }
             toActivate.GetComponent<Interfaces.activable>().Activate();
         }
     }

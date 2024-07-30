@@ -11,10 +11,12 @@ public class Herb : MonoBehaviour
     private Collider2D col;
     public bool TurnOfAligth=false;
     public Light2D light2d;
+    public Light2D Selflight2d;
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        Selflight2d = GetComponent<Light2D>(); 
     }
     public void TurnOff()
     {
@@ -25,11 +27,13 @@ public class Herb : MonoBehaviour
             if(light2d != null)
                 light2d.enabled = false;
         }
+        Selflight2d.enabled = false;
     }
     public void TurnOn()
     {
         sprite.enabled = true;
         col.enabled = true;
+        Selflight2d.enabled=true;
     }
     public Sprite getSprite()
     {

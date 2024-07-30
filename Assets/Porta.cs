@@ -6,7 +6,6 @@ using static Interfaces;
 
 public class Porta : MonoBehaviour, activable
 {
-    public LayerMask player;
     public Vector3 TeleportPosition;
     bool active;
     public Light2D ligth;
