@@ -8,15 +8,32 @@ public class PlayerAnimController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Sprite idleFirstFrame;  // Assign this in the Inspector
 
+    public CameraShake cameraShake;
+    public float shakeIntensity = 5f;
+    public float shakeDuration = 0.5f;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        StartCoroutine(PlayDeathAnimationCoroutine());
+    //        PlayTPAnimation();
+    //    }
+    //}
     public void PlayDeathAnimation()
     {
             StartCoroutine(PlayDeathAnimationCoroutine());       
+    }
+
+    public void PlayTPAnimation()
+    {
+        animator.SetTrigger("TP");
     }
 
     private IEnumerator PlayDeathAnimationCoroutine()
@@ -26,7 +43,7 @@ public class PlayerAnimController : MonoBehaviour
 
         // Wait for one frame to ensure the sprite change is rendered
         yield return null;
-
+        cameraShake.ShakeCamera(shakeIntensity, shakeDuration);
         // Trigger the death animation
         animator.SetTrigger("Die");
     }
