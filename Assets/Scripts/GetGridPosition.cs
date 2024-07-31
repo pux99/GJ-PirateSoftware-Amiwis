@@ -33,7 +33,7 @@ public class GetGridPosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        direction = new Vector3Int(1, 0, 0);
     }
 
     // Update is called once per frame
@@ -48,6 +48,7 @@ public class GetGridPosition : MonoBehaviour
                 PreventHoldingSpace=true;
             }
         }
+
         switch (DrawingMod)
         {
             case Mod.DrawingLine:
@@ -100,15 +101,13 @@ public class GetGridPosition : MonoBehaviour
                 {
                     case 1:
                         direction = new Vector3Int(1, 0, 0);
-                        IndicatiorTilemap.ClearAllTiles();
-                        DrawCone(IndicatiorTilemap, Indicator, size);
                         break;
                     case -1:
                         direction = new Vector3Int(-1, 0, 0);
-                        IndicatiorTilemap.ClearAllTiles();
-                        DrawCone(IndicatiorTilemap, Indicator, size);
                         break;
                 }
+                IndicatiorTilemap.ClearAllTiles();
+                DrawCone(IndicatiorTilemap, Indicator, size);
                 switch (Input.GetAxisRaw("Vertical"))
                 {
                     case 1:
@@ -151,12 +150,14 @@ public class GetGridPosition : MonoBehaviour
     }
     public void StartDrawing(Mod mod,int size)
     {
+        direction = new Vector3Int(-1, 0, 0);
         IndicatorCenter = GridPosition;
         if (DrawingMod == Mod.NotDrawing)
             playerManager.ToggleMovement(false);
         DrawingMod = mod;
         this.size=size;
         PreventHoldingSpace = false;
+        
     }
     public void DrawLine(Tilemap tilemap, Tile tile,int Length)
     {
@@ -173,6 +174,7 @@ public class GetGridPosition : MonoBehaviour
         {
             case 1:
                 positions.Clear();
+                tilemap.SetTile(IndicatorCenter + new Vector3Int(0, 0, 0), tile);
                 tilemap.SetTile(IndicatorCenter + new Vector3Int(1, 0, 0), tile);
                 tilemap.SetTile(IndicatorCenter + new Vector3Int(-1, 0, 0), tile);
                 tilemap.SetTile(IndicatorCenter + new Vector3Int(0, 1, 0), tile);
@@ -266,8 +268,8 @@ public class GetGridPosition : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
             couldownTimer = couldown;
-            IndicatiorTilemap.ClearAllTiles();
-            DrawCircle(IndicatiorTilemap, Indicator, size);
         }
+        IndicatiorTilemap.ClearAllTiles();
+        DrawCircle(IndicatiorTilemap, Indicator, size);
     }
 }

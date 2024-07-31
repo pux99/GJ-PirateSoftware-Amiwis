@@ -146,7 +146,7 @@ public class UICraftingManager : MonoBehaviour
                 break;
             case Potion.PotionType.Line:
                 type = GetGridPosition.Mod.DrawingLine;
-                size = 5;
+                size = 7;
                 break;
             case Potion.PotionType.SmallCicle:
                 type = GetGridPosition.Mod.DrawingCircle;
