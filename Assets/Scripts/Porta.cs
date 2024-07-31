@@ -11,6 +11,8 @@ public class Porta : MonoBehaviour, activable
     public Light2D ligth;
     public bool victory;
     public UIManager manager;
+
+
     // Start is called before the first frame update
     public void Activate()
     {
