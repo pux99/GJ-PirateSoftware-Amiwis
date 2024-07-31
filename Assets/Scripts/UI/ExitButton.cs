@@ -7,7 +7,7 @@ public class Exitbutton : MonoBehaviour
     public void ExitGame()
     {
 
-        UnityEditor.EditorApplication.isPlaying = false;
+        //SUnityEditor.EditorApplication.isPlaying = false;
         //Application.Quit();
     }
 
