@@ -11,7 +11,10 @@ public class Porta : MonoBehaviour, activable
     public Light2D ligth;
     public bool victory;
     public UIManager manager;
-
+    public Sol sun;
+    public bool tutorial;
+    public GameManager gameManager;
+    public UITimer timer;
 
     // Start is called before the first frame update
     public void Activate()
@@ -27,6 +30,13 @@ public class Porta : MonoBehaviour, activable
             collision.transform.position = TeleportPosition;
             if(collision.GetComponent<PlayerMovement>() != null) 
             {
+                if (tutorial)
+                {
+                    sun.BackToStart();
+                    GameManager._turnCount = 2500;
+                    gameManager.TotalTurns = 2500;
+                    timer.TotalTurns = 2500;
+                }
                 if(!victory)
                     collision.GetComponent<PlayerMovement>().pointToMove.position = TeleportPosition;
                 else

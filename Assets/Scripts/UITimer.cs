@@ -12,7 +12,7 @@ public class UITimer : MonoBehaviour
     public TextMeshProUGUI miles;
     public Image clockImage;
     int turns;
-    int TotalTurns;
+    public int TotalTurns;
     int index=0;
     public List<Sprite> sprites=new List<Sprite>();
 

@@ -57,9 +57,11 @@ public class Altar : MonoBehaviour
             if (portal != null)
             {
                 Light2D portalLight = portal.GetComponent<Light2D>();
+                SpriteRenderer portalSprite = portal.GetComponent<SpriteRenderer>();
                 if (portalLight != null)
                 {
                     portalLight.enabled = true;
+                    portalSprite.enabled = true;
                 }
             }
         }
