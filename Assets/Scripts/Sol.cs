@@ -8,8 +8,10 @@ public class Sol : MonoBehaviour, EnemyActor
     public int stepbetewinMovments;
     public int counter;
     public UIManager manager;
+    private Vector3 originalPos;
     void Start()
     {
+        originalPos = transform.position;
         GameManager.actors.Add(this);
     }
 
@@ -43,5 +45,10 @@ public class Sol : MonoBehaviour, EnemyActor
             Debug.Log("key GameOver");
             manager.EndOfGame(false, "Portal Gem destroy by the sun");
         }
+    }
+
+    public void BackToStart()
+    {
+        transform.position = originalPos;
     }
 }

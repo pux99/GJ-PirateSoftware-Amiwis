@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Altar : MonoBehaviour
 {
@@ -10,12 +11,20 @@ public class Altar : MonoBehaviour
     public Interfaces.activable active;
 
     public Sprite newSprite; // The new sprite you want to change to
+    public Light2D light2D; // Reference to the Light 2D component
+    public GameObject portal; // Reference to the other GameObject
+
 
     private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (light2D != null)
+        {
+            light2D.enabled = false;
+        }
+       
     }
 
     public bool TryToActivate()
@@ -40,6 +49,21 @@ public class Altar : MonoBehaviour
             }
             toActivate.GetComponent<Interfaces.activable>().Activate();
             spriteRenderer.sprite = newSprite;
+            if (light2D != null)
+            {
+                light2D.enabled = true;
+            }
+
+            if (portal != null)
+            {
+                Light2D portalLight = portal.GetComponent<Light2D>();
+                SpriteRenderer portalSprite = portal.GetComponent<SpriteRenderer>();
+                if (portalLight != null)
+                {
+                    portalLight.enabled = true;
+                    portalSprite.enabled = true;
+                }
+            }
         }
     }
     // Update is called once per frame
