@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour , EnemyActor
     void Update()
     {
 
-        transform.position = Vector3.MoveTowards(transform.position, nextPos, 2 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, nextPos, 5 * Time.deltaTime);
         if (Test)
         {
             Vector3 next=Steps.First();
